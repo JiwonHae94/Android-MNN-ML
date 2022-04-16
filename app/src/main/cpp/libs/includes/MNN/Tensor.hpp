@@ -10,8 +10,9 @@
 #define Tensor_hpp
 
 #include <vector>
-#include "HalideRuntime.h"
+#include <MNN/HalideRuntime.h>
 #include <MNN/MNNDefine.h>
+#define MNN_MAX_TENSOR_DIM 6
 
 namespace MNN {
 
@@ -43,15 +44,12 @@ public:
         /** string handle type */
         HANDLE_STRING = 1
     };
-
-    /** dimension reorder flag */
-    enum DataReorderType {
-        /** default reorder type, do not reorder */
-        NO_REORDER = 0,
-        /** reorder dimension 4 by 4. usually used with NC4HW4 or NHWC4 while data type is float. */
-        REORDER_4 = 1,
-        /** reorder dimension 8 by 8. usually used with NC4HW4 or NHWC4 while data type is uint8 or int8. */
-        REORDER_8
+    
+    /** Tensor map type : Read or Write*/
+    enum MapType {
+        /** map Tensor for writing data*/
+        MAP_TENSOR_WRITE = 0,
+        MAP_TENSOR_READ = 1
     };
 
 public:
@@ -75,6 +73,7 @@ public:
     ~Tensor();
 
 private:
+    Tensor(bool deepCopy, const Tensor* tensor);
     // remove all assignment operator
     Tensor(const Tensor& tensor)  = delete;
     Tensor(const Tensor&& tensor) = delete;
@@ -127,6 +126,12 @@ public:
         return create(shape, halide_type_of<T>(), data, dimType);
     }
 
+    /**
+     * @brief copy tensor.
+     * @param src     tensor
+     * @param deepCopy whether create new content and copy, currently only support deepCopy = false
+     */
+    static Tensor* clone(const Tensor* src, bool deepCopy = false);
 public:
     /**
      * @brief for DEVICE tensor, copy data from given host tensor.
@@ -231,7 +236,7 @@ public:
         if (getDimensionType() == TENSORFLOW) {
             return mBuffer.dim[2].extent;
         }
-        
+
         return mBuffer.dim[3].extent;
     }
     inline int height() const {
@@ -269,7 +274,24 @@ public:
      * @brief print tensor data. for DEBUG use only.
      */
     void print() const;
+    
+    /**
+     *@brief print tensor shape
+     */
+    void printShape() const;
 
+public:
+    /**
+     * @brief map/umap GPU Tensor, to get host ptr
+     */
+    void* map(MapType mtype, DimensionType dtype);
+    void unmap(MapType mtype, DimensionType dtype, void* mapPtr);
+    /**
+     * @brief wait until the tensor is ready to read / write
+     * @param mtype wait for read or write
+     * @param finish wait for command flush or finish
+     */
+    int wait(MapType mtype, bool finish);
 private:
     halide_buffer_t mBuffer;
     struct InsideDescribe* mDescribe;
