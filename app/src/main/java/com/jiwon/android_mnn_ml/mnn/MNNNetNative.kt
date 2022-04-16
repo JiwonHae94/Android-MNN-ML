@@ -1,6 +1,7 @@
 package com.jiwon.android_mnn_ml.mnn
 
 import android.graphics.Bitmap
+import android.util.Log
 
 
 object MNNNetNative {
@@ -41,9 +42,9 @@ object MNNNetNative {
     external fun nativeSetInputFloatData(netPtr: Long, tensorPtr: Long, data: FloatArray)
 
     //If dest is null, return length
-    external fun nativeTensorGetData(tensorPtr: Long, dest: FloatArray): Int
-    external fun nativeTensorGetIntData(tensorPtr: Long, dest: IntArray): Int
-    external fun nativeTensorGetUINT8Data(tensorPtr: Long, dest: ByteArray): Int
+    external fun nativeTensorGetData(tensorPtr: Long, dest: FloatArray?): Int
+    external fun nativeTensorGetIntData(tensorPtr: Long, dest: IntArray?): Int
+    external fun nativeTensorGetUINT8Data(tensorPtr: Long, dest: ByteArray?): Int
 
     //ImageProcess
     external fun nativeConvertBitmapToTensor(
@@ -71,14 +72,16 @@ object MNNNetNative {
         normal: FloatArray?,
     ): Boolean
 
-    // load libraries
-    //    static void loadGpuLibrary(String name) {
-    //        try {
-    //            System.loadLibrary(name);
-    //        } catch (Throwable ce) {
-    //            Log.w(Common.TAG, "load MNN " + name + " GPU so exception=%s", ce);
-    //        }
-    //    }
+     //load libraries
+
+    fun loadGpuLibrary(name : String) {
+        try {
+            System.loadLibrary(name);
+        } catch (e : Throwable) {
+            Log.w("MNNNetNative", "load MNN " + name + " GPU so exception=%s", e);
+        }
+    }
+
     init {
         System.loadLibrary("MNN")
         //        loadGpuLibrary("MNN_Vulkan");
