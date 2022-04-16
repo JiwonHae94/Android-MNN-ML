@@ -41,7 +41,7 @@ namespace CV {
     so it has no effect. setTranslate(), setScale(), setSkew(), setRotate(), set9 and setAll()
     initializes all Matrix elements with the corresponding mapping.
 
-    Matrix libs.includes a hidden variable that classifies the type of matrix to
+    Matrix includes a hidden variable that classifies the type of matrix to
     improve performance. Matrix is not thread safe unless getType() is called first.
 */
 

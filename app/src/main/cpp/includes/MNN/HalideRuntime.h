@@ -197,7 +197,7 @@ typedef enum {halide_buffer_flag_host_dirty = 1,
 
 /**
  * The raw representation of an image passed around by generated
- * Halide code. It libs.includes some stuff to track whether the image is
+ * Halide code. It includes some stuff to track whether the image is
  * not actually in main memory, but instead on a device (like a
  * GPU). For a more convenient C++ wrapper, use Halide::Buffer<T>. */
 typedef struct halide_buffer_t {
@@ -241,7 +241,7 @@ template<typename T> struct check_is_pointer<T *> {};
 template<typename T>
 HALIDE_ALWAYS_INLINE halide_type_t halide_type_of() {
     // Create a compile-time error if T is not a pointer (without
-    // using any libs.includes - this code goes into the runtime).
+    // using any includes - this code goes into the runtime).
     check_is_pointer<T> check;
     (void)check;
     return halide_type_t(halide_type_handle, 64);
