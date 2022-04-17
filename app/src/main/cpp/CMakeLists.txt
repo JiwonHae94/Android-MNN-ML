@@ -1,41 +1,29 @@
+project(android-mnn-ml)
 cmake_minimum_required(VERSION 3.4.1)
 
-set(lib_DIR ${CMAKE_SOURCE_DIR}/libs)
-include_directories(${CMAKE_SOURCE_DIR}/includes)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/includes)
+find_library( android-lib  android )
+find_library( log-lib log )
 
-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fopenmp")
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fopenmp")
+find_library( jnigraphics-lib jnigraphics )
 
-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99 -fvisibility=hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -ffast-math -flax-vector-conversions")
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fvisibility=hidden -fvisibility-inlines-hidden -fomit-frame-pointer -fstrict-aliasing -ffunction-sections -fdata-sections -ffast-math -fno-rtti -fno-exceptions -flax-vector-conversions")
-set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -Wl,--gc-sections")
-
-
-find_library( # Sets the name of the path variable.
-        android-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        android )
-
-find_library( # Sets the name of the path variable.
-        log-lib
-
-        # Specifies the name of the NDK library that
-        # you want CMake to locate.
-        log)
-
+add_library(MNN SHARED IMPORTED )
+set_target_properties(
+        MNN
+        PROPERTIES IMPORTED_LOCATION
+        ${CMAKE_CURRENT_SOURCE_DIR}/includes/MNN/libs/${ANDROID_ABI}/libMNN.so
+)
 
 add_library(
-        MNN
+        mnn-core
         SHARED
         mnnnet-native.cpp
 )
 
-set_target_properties(
+target_link_libraries(
+        mnn-core
         MNN
-        PROPERTIES IMPORTED_LOCATION
-        ${lib_DIR}/${ANDROID_ABI}/libMNN.so
+        ${jnigraphics-lib}
         ${log-lib}
         ${android-lib}
 )

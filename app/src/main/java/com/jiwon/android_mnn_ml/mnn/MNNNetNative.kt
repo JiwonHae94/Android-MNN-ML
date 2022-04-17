@@ -83,7 +83,7 @@ object MNNNetNative {
     }
 
     init {
-        System.loadLibrary("MNN")
+        System.loadLibrary("mnn-core")
         //        loadGpuLibrary("MNN_Vulkan");
 //        loadGpuLibrary("MNN_OpenCL");
 //        loadGpuLibrary("MNN_GL");

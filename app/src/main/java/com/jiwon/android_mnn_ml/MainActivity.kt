@@ -11,9 +11,15 @@ import com.jiwon.android_mnn_ml.mnn.MNNNetInstance
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
+    private val labels = "mobilenet_v2/synset_words.txt"
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        prepareModel("app/src/main/assets/mobilenet_v2")
+
     }
 
     private val InputWidth = 224
@@ -21,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun prepareModel(
         modelName: String,
-    ) : MNNNetInstance.Session.Tensor? {
+    ) : MNNNetInstance.Session? {
         val modelPath = File(cacheDir, modelName)
 
         val mnnInstance = MNNNetInstance.createFromFile(modelPath.toString())
@@ -32,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         mnnInstance ?: return null
 
         val session = mnnInstance!!.createSession(config)
-        return session?.getInput(null)
+        return session
     }
 
     private fun MNNNetInstance.Session.runModel(img : Bitmap){
