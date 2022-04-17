@@ -379,7 +379,7 @@ extern "C" JNIEXPORT jboolean JNICALL Java_com_jiwon_android_1mnn_1ml_mnn_MNNNet
 }
 
 extern "C" JNIEXPORT jboolean JNICALL Java_com_jiwon_android_1mnn_1ml_mnn_MNNNetNative_nativeConvertBitmapToTensor(
-    JNIEnv *env, jclass type, jobject srcBitmap, jlong tensorPtr, jint destFormat, jint filterType, jint wrap,
+    JNIEnv *env, jobject type, jobject srcBitmap, jlong tensorPtr, jint destFormat, jint filterType, jint wrap,
     jfloatArray matrixValue_, jfloatArray mean_, jfloatArray normal_) {
     MNN::CV::ImageProcess::Config config;
     config.destFormat = (MNN::CV::ImageFormat)destFormat;

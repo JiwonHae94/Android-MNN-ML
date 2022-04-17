@@ -1,13 +1,14 @@
 package com.jiwon.android_mnn_ml
 
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Matrix
 import android.os.Bundle
+import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.jiwon.android_mnn_ml.mnn.MNNForwardType
+import com.jiwon.android_mnn_ml.mnn.MNNImageProcess
 import com.jiwon.android_mnn_ml.mnn.MNNNetInstance
 import java.io.File
-import java.lang.NullPointerException
-import kotlin.jvm.Throws
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,9 +16,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
     }
 
+    private val InputWidth = 224
+    private val InputHeight = 224
+
     private fun prepareModel(
-        modelName : String
-    ){
+        modelName: String,
+    ) : MNNNetInstance.Session.Tensor? {
         val modelPath = File(cacheDir, modelName)
 
         val mnnInstance = MNNNetInstance.createFromFile(modelPath.toString())
@@ -25,15 +29,48 @@ class MainActivity : AppCompatActivity() {
         config.numThread = 4
         config.forwardType = MNNForwardType.FORWARD_CPU.type
 
-        mnnInstance ?: {
-            Throwable(NullPointerException("Model file not found"))
-        }
+        mnnInstance ?: return null
 
         val session = mnnInstance!!.createSession(config)
-        val inputTensor = session?.getInput(null)
+        return session?.getInput(null)
     }
 
-    private fun runModel(img : Bitmap){
-        val imageProcessor = MNNImageProcess.Config
+    private fun MNNNetInstance.Session.runModel(img : Bitmap){
+        val imageConfig = MNNImageProcess.Config(
+            mean = floatArrayOf(103.94f, 116.78f, 123.68f),
+            normal = floatArrayOf(0.017f, 0.017f, 0.017f),
+            dest = MNNImageProcess.Format.BGR
+        )
+
+        // bitmap transform
+        val matrix = Matrix()
+        matrix.postScale(InputWidth / img.width as Float,
+            InputHeight / img.height as Float)
+        matrix.invert(matrix)
+
+        MNNImageProcess.convertBitmap(img, this.getInput(null)!!, imageConfig, matrix)
+
+        val startTimestamp = System.nanoTime()
+        /**
+         * inference
+         */
+        /**
+         * inference
+         */
+        run()
+
+        val endTimestamp = System.nanoTime()
+        val inferenceTimeCost = (endTimestamp - startTimestamp) / 1000000.0f
+        Log.i("InferenceTime", "time taken : ${inferenceTimeCost}")
+
+        // get inference output
+        val output = getOutput(null)
+        val rslts = output?.floatData
+        rslts ?: return
+
+        val maybes = rslts.filter { it >= 0.1 }.mapIndexed { index, scores ->
+            Pair(index, scores)
+        }
+
     }
 }

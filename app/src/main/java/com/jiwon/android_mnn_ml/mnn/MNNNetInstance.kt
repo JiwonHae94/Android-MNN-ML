@@ -105,7 +105,7 @@ class MNNNetInstance constructor(var mNetInstance: Long) {
             return tensorReturnArray
         }
 
-        fun getInput(name: String): Tensor? {
+        fun getInput(name: String?): Tensor? {
             val tensorPtr = nativeGetSessionInput(mNetInstance, mSessionInstance, name)
             if (0L == tensorPtr) {
                 Log.e(TAG, "Can't find seesion input: $name")
@@ -114,7 +114,7 @@ class MNNNetInstance constructor(var mNetInstance: Long) {
             return Tensor(tensorPtr)
         }
 
-        fun getOutput(name: String): Tensor? {
+        fun getOutput(name: String?): Tensor? {
             val tensorPtr = nativeGetSessionOutput(mNetInstance, mSessionInstance, name)
             if (0L == tensorPtr) {
                 Log.e(TAG, "Can't find seesion output: $name")
