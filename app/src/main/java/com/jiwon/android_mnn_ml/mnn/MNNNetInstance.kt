@@ -29,7 +29,7 @@ class MNNNetInstance constructor(var mNetInstance: Long) {
 
     inner class Session(ptr: Long) {
         inner class Tensor(private val mTensorInstance: Long) {
-            protected fun instance(): Long {
+            fun instance(): Long {
                 return mTensorInstance
             }
 
