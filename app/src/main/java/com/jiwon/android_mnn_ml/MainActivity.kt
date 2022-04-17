@@ -67,6 +67,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             val session = mnnInstance!!.createSession(config)
+            val inputTensor = session?.getInput(null)
+            val dimensions = inputTensor?.dimensions
+            dimensions?.set(0, 1)
+            inputTensor?.reshape(dimensions)
+
             return session
         }catch(e: Exception){
             throw RuntimeException(e)
@@ -77,6 +82,7 @@ class MainActivity : AppCompatActivity() {
         val imageConfig = MNNImageProcess.Config(
             mean = floatArrayOf(103.94f, 116.78f, 123.68f),
             normal = floatArrayOf(0.017f, 0.017f, 0.017f),
+            source = MNNImageProcess.Format.YUV_NV21,
             dest = MNNImageProcess.Format.BGR
         )
 
@@ -103,16 +109,16 @@ class MainActivity : AppCompatActivity() {
         val rslts = output?.floatData
         rslts ?: return
 
-        Log.d("MNN", rslts.joinToString(" "))
-
         val maybes = rslts.mapIndexed { index, scores-> Pair(index, scores) }.filter { it.second > 0.01 }
-        Log.d("MNN", maybes.joinToString(" "))
         maybes.forEach {
             val label = mMobileTaiWords?.get(it.first)
             Log.d("MNN", "label found : ${label}")
-
         }
 
+        val label = mMobileTaiWords?.get(maybes.maxByOrNull { it.second }?.first ?: 0)
+        runOnUiThread {
+            binding.label.text = label
+        }
     }
 
     override fun onDestroy() {
