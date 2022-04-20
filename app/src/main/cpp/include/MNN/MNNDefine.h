@@ -9,8 +9,8 @@
 #ifndef MNNDefine_h
 #define MNNDefine_h
 
-#include <assert.h>
-#include <stdio.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/assert.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stdio.h"
 
 #if defined(__APPLE__)
 #include <TargetConditionals.h>

@@ -24,9 +24,9 @@
 #ifndef SkMatrix_DEFINED
 #define SkMatrix_DEFINED
 
-#include <string.h>
-#include <cstdint>
-#include <MNN/Rect.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/string.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/cstdint"
+#include "Rect.h"
 
 namespace MNN {
 namespace CV {

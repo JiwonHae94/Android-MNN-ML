@@ -26,10 +26,10 @@
 #ifndef SkRect_DEFINED
 #define SkRect_DEFINED
 
-#include <math.h>
-#include <algorithm>
-#include <utility>
-#include <MNN/MNNDefine.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/math.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/algorithm"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/utility"
+#include "MNNDefine.h"
 
 namespace MNN {
 namespace CV {

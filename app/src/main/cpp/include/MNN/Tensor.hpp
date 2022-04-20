@@ -9,9 +9,9 @@
 #ifndef Tensor_hpp
 #define Tensor_hpp
 
-#include <vector>
-#include <MNN/HalideRuntime.h>
-#include <MNN/MNNDefine.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/vector"
+#include "HalideRuntime.h"
+#include "MNNDefine.h"
 #define MNN_MAX_TENSOR_DIM 6
 
 namespace MNN {

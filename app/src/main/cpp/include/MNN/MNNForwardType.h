@@ -8,8 +8,8 @@
 
 #ifndef MNNForwardType_h
 #define MNNForwardType_h
-#include <stdint.h>
-#include <stddef.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stdint.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stddef.h"
 
 typedef enum {
     MNN_FORWARD_CPU = 0,

@@ -9,13 +9,13 @@
 #ifndef Interpreter_hpp
 #define Interpreter_hpp
 
-#include <functional>
-#include <map>
-#include <memory>
-#include <string>
-#include <MNN/ErrorCode.hpp>
-#include <MNN/MNNForwardType.h>
-#include <MNN/Tensor.hpp>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/functional"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/map"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/memory"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/string"
+#include "ErrorCode.hpp"
+#include "MNNForwardType.h"
+#include "Tensor.hpp"
 
 namespace MNN {
 

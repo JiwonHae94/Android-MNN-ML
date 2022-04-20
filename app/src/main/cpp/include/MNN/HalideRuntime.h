@@ -1,9 +1,9 @@
 #ifndef HALIDE_HALIDERUNTIME_H
 #define HALIDE_HALIDERUNTIME_H
 
-#include <stddef.h>
-#include <stdint.h>
-#include <stdbool.h>
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stddef.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stdint.h"
+#include "../../../../../../../../../Library/Android/sdk/ndk/21.4.7075529/toolchains/llvm/prebuilt/darwin-x86_64/sysroot/usr/include/c++/v1/stdbool.h"
 
 #ifdef __cplusplus
 extern "C" {

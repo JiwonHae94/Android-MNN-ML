@@ -9,9 +9,9 @@
 #include <android/bitmap.h>
 #include <jni.h>
 #include <string.h>
-#include <MNN/ImageProcess.hpp>
-#include <MNN/Interpreter.hpp>
-#include <MNN/Tensor.hpp>
+#include "libs/MNN/ImageProcess.hpp"
+#include "libs/MNN/Interpreter.hpp"
+#include "libs/MNN/Tensor.hpp"
 #include <memory>
 
 extern "C" JNIEXPORT jlong JNICALL

@@ -11,7 +11,7 @@ add_library(MNN SHARED IMPORTED )
 set_target_properties(
         MNN
         PROPERTIES IMPORTED_LOCATION
-        ${CMAKE_CURRENT_SOURCE_DIR}/includes/MNN/libs/${ANDROID_ABI}/libMNN.so
+        include/MNN/libs/${ANDROID_ABI}/libMNN.so
 )
 
 add_library(
