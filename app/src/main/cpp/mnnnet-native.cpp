@@ -9,10 +9,12 @@
 #include <android/bitmap.h>
 #include <jni.h>
 #include <string.h>
-#include "libs/MNN/ImageProcess.hpp"
-#include "libs/MNN/Interpreter.hpp"
-#include "libs/MNN/Tensor.hpp"
+#include "include/MNN/ImageProcess.hpp"
+#include "include/MNN/Interpreter.hpp"
+#include "include/MNN/Tensor.hpp"
 #include <memory>
+#include <vector>
+#include <string>
 
 extern "C" JNIEXPORT jlong JNICALL
 Java_com_jiwon_android_1mnn_1ml_mnn_MNNNetNative_nativeCreateNetFromFile(JNIEnv *env, jobject type, jstring modelName_) {
